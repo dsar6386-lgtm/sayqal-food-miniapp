@@ -1,1 +1,76 @@
-
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#100d0a">
+<title>Sayqal Food</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+:root{--bg:#100d0a;--panel:#1b1510;--panel2:#261b12;--gold:#f5a623;--orange:#ff7417;--cream:#fff0d5;--muted:#b8a795;--line:#5a3a1c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#4a260d 0,#100d0a 45%);color:var(--cream);font:15px system-ui,-apple-system,sans-serif;padding-bottom:92px}
+header{padding:18px 17px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#100d0aee;backdrop-filter:blur(12px);z-index:5;border-bottom:1px solid #ffffff12}
+.brand{display:flex;gap:10px;align-items:center}.crown{width:43px;height:43px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:25px;box-shadow:0 0 18px #f5a62335}
+.brand b{font-size:18px;letter-spacing:.4px}.brand small{display:block;color:var(--muted);font-size:11px}
+.pill{border:1px solid #6a461d;border-radius:30px;padding:7px 11px;color:var(--gold);font-size:11px}
+main{max-width:620px;margin:auto;padding:14px}
+.hero{background:linear-gradient(130deg,#38200f,#17100b 70%);border:1px solid #80501e;border-radius:23px;padding:20px;position:relative;overflow:hidden;box-shadow:0 10px 35px #0008}
+.hero:after{content:"♛";position:absolute;right:8px;top:-32px;font-size:145px;color:#ffb12b13}
+.eyebrow{color:var(--gold);font-weight:800;letter-spacing:2px;font-size:11px}.hero h1{font-size:29px;line-height:1.12;margin:8px 0}.hero p{color:#d6c2a9;margin:0 0 15px;max-width:260px}
+.primary{background:linear-gradient(100deg,#ffb52d,#ff7617);color:#1c1005;border:0;border-radius:15px;padding:14px 17px;font-weight:900;font-size:15px;box-shadow:0 5px 18px #ff861c3d;cursor:pointer}
+.section{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 12px}.section h2{font-size:18px;margin:0}.section span{color:var(--gold);font-size:12px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.cat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:12px 3px;text-align:center;color:var(--cream);font-weight:700;font-size:11px;cursor:pointer}.cat i{display:block;font-style:normal;font-size:23px;margin-bottom:5px}.cat.active{border-color:var(--gold);background:#3b260f;box-shadow:0 0 14px #f5a62322}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product{background:linear-gradient(150deg,#241a12,#15110e);border:1px solid #543719;border-radius:18px;padding:11px;min-width:0}.food{height:92px;border-radius:13px;background:radial-gradient(circle,#69401c,#24160c 70%);display:grid;place-items:center;font-size:57px}.product h3{font-size:14px;margin:10px 0 3px}.desc{font-size:11px;color:var(--muted);min-height:28px}.price{color:#ffc04c;font-weight:900;margin:8px 0}.add{width:100%;border:1px solid #a9681c;background:#2b1b0d;color:#ffc04c;border-radius:11px;padding:10px;font-weight:800;cursor:pointer}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#17110df2;backdrop-filter:blur(14px);border-top:1px solid #68451f;display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:10}.nav{background:none;border:0;color:#bca98f;font-size:11px;cursor:pointer}.nav strong{display:block;font-size:20px;margin-bottom:2px}.nav.active{color:var(--gold)}
+.page{display:none}.page.active{display:block}.cartrow{display:flex;justify-content:space-between;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin:9px 0}.qty{display:flex;align-items:center;gap:10px}.qty button{border:1px solid var(--line);background:#2d1d10;color:var(--gold);border-radius:9px;padding:5px 10px}.total{display:flex;justify-content:space-between;font-weight:900;font-size:18px;margin:20px 2px}.field{width:100%;background:#211810;border:1px solid #65421e;border-radius:12px;padding:13px;color:white;margin:7px 0;font:inherit}.hint{color:var(--muted);font-size:12px;line-height:1.5}.empty{text-align:center;padding:40px 10px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="crown">♛</div><div><b>SAYQAL FOOD</b><small>Ta’mda mukammallik!</small></div></div><div class="pill">● PREMIUM</div></header>
+<main>
+<section id="home" class="page active">
+<div class="hero"><div class="eyebrow">MAZALI LAHZALAR</div><h1>Bugun nimani<br>tanlaysiz?</h1><p>Sevimli taomingizni tanlang — qolganini bizga qo‘ying.</p><button class="primary" onclick="showPage('menu')">Menyuni ko‘rish　→</button></div>
+<div class="section"><h2>Kategoriyalar</h2><span>Hammasini tanlang</span></div>
+<div class="categories" id="homeCats"></div>
+<div class="section"><h2>🔥 Mashhur taomlar</h2><span onclick="showPage('menu')">Barchasi →</span></div>
+<div class="products" id="popular"></div>
+</section>
+<section id="menu" class="page"><div class="section"><h2>🍽 Menyu</h2><span>Yangi va mazali</span></div><p class="hint">Narxlar hozircha 0 so‘m qilib qo‘yilgan. Keyin sosiska, kolbasa va shashlik tannarxiga qarab alohida belgilanadi.</p><div class="categories" id="menuCats"></div><div class="products" id="items" style="margin-top:14px"></div></section>
+<section id="cart" class="page"><div class="section"><h2>🛒 Savatcham</h2><span id="cartCount">0 ta mahsulot</span></div><div id="cartItems"></div><div class="total"><span>Jami</span><span id="total">0 so‘m</span></div><button class="primary" style="width:100%" onclick="showPage('checkout')">Buyurtmani rasmiylashtirish →</button></section>
+<section id="checkout" class="page"><div class="section"><h2>📦 Buyurtma</h2><span>Oxirgi qadam</span></div><p class="hint">Ma’lumotlaringizni kiriting. Buyurtma bot orqali adminga yuboriladi.</p><input class="field" id="customer" placeholder="Ismingiz"><input class="field" id="phone" placeholder="Telefon raqamingiz" inputmode="tel"><textarea class="field" id="address" placeholder="Yetkazib berish manzili" rows="3"></textarea><select class="field" id="delivery"><option value="Yetkazib berish">Yetkazib berish</option><option value="O‘zim olib ketaman">O‘zim olib ketaman</option></select><button class="primary" style="width:100%" onclick="submitOrder()">Buyurtmani yuborish ✓</button><p id="orderMsg" class="hint"></p></section>
+<section id="orders" class="page"><div class="section"><h2>📦 Buyurtmalarim</h2></div><div class="empty">Buyurtmalar tarixi bot bilan ulanishdan so‘ng ko‘rsatiladi.</div></section>
+<section id="profile" class="page"><div class="section"><h2>👤 Profil</h2></div><div class="hero"><div class="eyebrow">SAYQAL FOOD MIJOZI</div><h2 id="profileName">Xush kelibsiz!</h2><p>Sevimli taomlaringiz bir joyda.</p></div><p class="hint">Profil ma’lumotlari Telegram hisobingizdan olinadi.</p></section>
+</main>
+<nav class="bottom"><button class="nav active" data-page="home" onclick="showPage('home')"><strong>⌂</strong>Bosh sahifa</button><button class="nav" data-page="menu" onclick="showPage('menu')"><strong>☷</strong>Menyu</button><button class="nav" data-page="cart" onclick="showPage('cart')"><strong>🛒</strong>Savatcha <span id="badge"></span></button><button class="nav" data-page="orders" onclick="showPage('orders')"><strong>▣</strong>Buyurtma</button><button class="nav" data-page="profile" onclick="showPage('profile')"><strong>♙</strong>Profil</button></nav>
+<script>
+const tg=window.Telegram?.WebApp; tg?.ready(); tg?.expand();
+const products=[
+{id:1,name:"Sayqal Burger",cat:"Burgerlar",emoji:"🍔",desc:"Maxsus sous va yangi sabzavotlar",price:0},
+{id:2,name:"Cheese Burger",cat:"Burgerlar",emoji:"🍔",desc:"Pishloqli klassik lazzat",price:0},
+{id:3,name:"Lavash Classic",cat:"Lavashlar",emoji:"🌯",desc:"Mazali go‘sht va maxsus sous",price:0},
+{id:4,name:"Tovuqli Lavash",cat:"Lavashlar",emoji:"🌯",desc:"Yumshoq tovuq go‘shti",price:0},
+{id:5,name:"Sosiskali hoddog",cat:"Hoddoglar",emoji:"🌭",desc:"Bulochka, sosiska, sabzavot va maxsus sous",price:0},
+{id:6,name:"Kolbasali hoddog",cat:"Hoddoglar",emoji:"🌭",desc:"Bulochka, kolbasa, sabzavot va maxsus sous",price:0},
+{id:7,name:"Shashlikli hoddog",cat:"Hoddoglar",emoji:"🔥",desc:"Gril ta’mi, shashlik va maxsus sous",price:0},
+{id:8,name:"Sosiska + shashlik hoddog",cat:"Hoddoglar",emoji:"🌭",desc:"Sosiska va shashlik uyg‘unligi",price:0},
+{id:9,name:"Kolbasa + shashlik hoddog",cat:"Hoddoglar",emoji:"🔥",desc:"Kolbasa va shashlik uyg‘unligi",price:0},
+{id:10,name:"Fri kartoshka",cat:"Snacks",emoji:"🍟",desc:"Qarsildoq va issiq",price:0},
+{id:11,name:"Nuggets",cat:"Snacks",emoji:"🍗",desc:"Mazali tovuq bo‘laklari",price:0},
+{id:12,name:"Cola",cat:"Ichimliklar",emoji:"🥤",desc:"Muzdek ichimlik",price:0},
+{id:13,name:"Milkshake",cat:"Ichimliklar",emoji:"🥛",desc:"Mayin va mazali",price:0}
+];
+const cats=[["🍔","Burgerlar"],["🌯","Lavashlar"],["🌭","Hoddoglar"],["🍟","Snacks"],["🥤","Ichimliklar"]];
+let cart={},activeCat="Hammasi";
+const money=n=>n.toLocaleString("uz-UZ")+" so‘m";
+function catHTML(target){document.getElementById(target).innerHTML=cats.map(([e,c])=>`<button class="cat ${activeCat===c?'active':''}" onclick="filterCat('${c}')"><i>${e}</i>${c}</button>`).join("")}
+function card(p){return `<article class="product"><div class="food">${p.emoji}</div><h3>${p.name}</h3><div class="desc">${p.desc}</div><div class="price">${money(p.price)}</div><button class="add" onclick="add(${p.id})">＋ Savatga qo‘shish</button></article>`}
+function render(){catHTML("homeCats");catHTML("menuCats");document.getElementById("popular").innerHTML=products.slice(0,4).map(card).join("");document.getElementById("items").innerHTML=products.filter(p=>activeCat==="Hammasi"||p.cat===activeCat).map(card).join("");let entries=Object.entries(cart);document.getElementById("cartCount").textContent=entries.reduce((s,[,q])=>s+q,0)+" ta mahsulot";document.getElementById("badge").textContent=entries.length?`(${entries.reduce((s,[,q])=>s+q,0)})`:"";document.getElementById("cartItems").innerHTML=entries.length?entries.map(([id,q])=>{let p=products.find(x=>x.id==id);return `<div class="cartrow"><div><b>${p.emoji} ${p.name}</b><div class="hint">${money(p.price)} × ${q}</div></div><div class="qty"><button onclick="change(${id},-1)">−</button>${q}<button onclick="change(${id},1)">＋</button></div></div>`}).join(""):'<div class="empty">Savatchangiz hozircha bo‘sh 🍔</div>';document.getElementById("total").textContent=money(entries.reduce((s,[id,q])=>s+products.find(p=>p.id==id).price*q,0))}
+function filterCat(c){activeCat=c;showPage("menu");render()}
+function add(id){cart[id]=(cart[id]||0)+1;render();tg?.HapticFeedback?.impactOccurred("light")}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];render()}
+function showPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.page===id));if(id==="cart")render();window.scrollTo(0,0)}
+function submitOrder(){let items=Object.entries(cart).map(([id,q])=>{let p=products.find(x=>x.id==id);return {name:p.name,quantity:q,price:p.price}});if(!items.length){document.getElementById("orderMsg").textContent="Avval savatchaga mahsulot qo‘shing.";return}let data={customer:document.getElementById("customer").value,phone:document.getElementById("phone").value,address:document.getElementById("address").value,delivery:document.getElementById("delivery").value,items,total:items.reduce((s,x)=>s+x.price*x.quantity,0)};if(!data.customer||!data.phone||!data.address){document.getElementById("orderMsg").textContent="Iltimos, barcha maydonlarni to‘ldiring.";return}if(tg?.sendData){tg.sendData(JSON.stringify(data));document.getElementById("orderMsg").textContent="Buyurtma Telegram botga yuborildi!";cart={};render()}else{document.getElementById("orderMsg").textContent="Demo rejim: Telegram ichida ochilganda buyurtma botga yuboriladi."}}
+const user=tg?.initDataUnsafe?.user;if(user){document.getElementById("profileName").textContent=user.first_name||"Xush kelibsiz!"}
+render();
+</script>
+</body></html>
